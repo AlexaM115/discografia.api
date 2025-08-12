@@ -85,7 +85,7 @@ jobs:
             RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           run: |
             echo "starting deployment..."
-            railway up --service "discografia-api" || \
+            railway up --service discografia-api || \
             railway up --service discografia-api || \
             railway up --service web || \
             railway up --service api || \
