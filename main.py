@@ -27,6 +27,15 @@ from routes.songs_by_filter import router as songs_by_filter_router
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins for development; restrict in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
+
 
 from fastapi.openapi.utils import get_openapi
 def custom_openapi():
