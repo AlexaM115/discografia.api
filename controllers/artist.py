@@ -8,8 +8,15 @@ collection = get_collection("artists")
 def create_artist(artist: Artist):
     if collection.find_one({"name": artist.name, "lastname": artist.lastname}):
         raise HTTPException(status_code=400, detail="El artista ya existe")
-    result = collection.insert_one(artist.dict(by_alias=True, exclude={"id"}))
+
+    data = artist.dict(by_alias=True, exclude={"id"})
+
+    if "active" not in data:
+        data["active"] = True  # Valor por defecto
+
+    result = collection.insert_one(data)
     return {"message": "Artista creado", "id": str(result.inserted_id)}
+
 
 def get_all_artists():
     return [{**doc, "_id": str(doc["_id"])} for doc in collection.find()]
