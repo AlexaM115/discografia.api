@@ -58,7 +58,7 @@ async def create_user( user: User ) -> User:
         logger.warning( e )
         raise HTTPException(
             status_code=400
-            , detail="Error al registrar usuario en firebase"
+            , detail=f"Firebase error: {str(e)}"
         )
 
     try:

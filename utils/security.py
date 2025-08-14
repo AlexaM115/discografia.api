@@ -114,16 +114,13 @@ def validateadmin(func):
             exp = payload.get("exp")
             id = payload.get("id")
 
-            is_admin = str(admin).lower() == "true"
-            is_active = str(active).lower() == "true"
-
             if email is None:
                 raise HTTPException( status_code=401 , detail="Token Invalid" )
 
             if datetime.utcfromtimestamp(exp) < datetime.utcnow():
                 raise HTTPException( status_code=401 , detail="Expired token" )
 
-            if not is_active or not is_admin:
+            if not active or not admin:
                 raise HTTPException( status_code=401 , detail="Inactive user or not admin" )
 
             request.state.email = email
