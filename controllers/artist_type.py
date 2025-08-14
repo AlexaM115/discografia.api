@@ -73,3 +73,15 @@ def deactivate_artist_type(artist_type_id: str) -> dict:
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error deactivating artist type: {str(e)}")
+    
+def delete_artist_type(id: str):
+    # Verifica si hay artistas usando ese tipo
+    artists = get_collection("artists")
+    if artists.find_one({"id_artist_type": id}):
+        raise HTTPException(status_code=400, detail="No se puede eliminar: tipo en uso por artistas")
+
+    # Si no está en uso, se elimina
+    result = collection.delete_one({"_id": ObjectId(id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Tipo no encontrado")
+    return {"message": "Tipo de artista eliminado"}
