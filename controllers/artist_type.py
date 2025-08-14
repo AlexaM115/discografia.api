@@ -13,8 +13,13 @@ collection = get_collection("artist_types")
 def create_artist_type(tipo: ArtistType):
     if collection.find_one({"description": tipo.description}):
         raise HTTPException(status_code=400, detail="Tipo de artista ya existe")
-    result = collection.insert_one(tipo.dict(by_alias=True, exclude={"id"}))
+    
+    tipo_data = tipo.dict(by_alias=True, exclude={"id"})
+    tipo_data["active"] = True   
+
+    result = collection.insert_one(tipo_data)
     return {"message": "Tipo de artista creado", "id": str(result.inserted_id)}
+
 
 def get_all_artist_types():
     return [{**doc, "_id": str(doc["_id"])} for doc in collection.find()]
