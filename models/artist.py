@@ -7,6 +7,7 @@ class Artist(BaseModel):
     lastname: str
     gender: str
     date_birth: str  
+    id_artist_type: str
 
     class Config:
         allow_population_by_field_name = True
