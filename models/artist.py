@@ -10,7 +10,6 @@ class Artist(BaseModel):
     gender: str
     date_birth: date
     id_artist_type: str
-    description: str
     active: Optional[bool] = True 
 
     class Config:
