@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import Optional
-from datetime import date
+from datetime import datetime
 
 
 class Artist(BaseModel):
@@ -8,7 +8,7 @@ class Artist(BaseModel):
     name: str
     lastname: str
     gender: str
-    date_birth: date
+    date_birth: datetime
     id_artist_type: str
     active: Optional[bool] = True 
 
