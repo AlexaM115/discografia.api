@@ -21,7 +21,6 @@ class Artist(BaseModel):
                 "gender": "Masculino",
                 "date_birth": "1990-01-01",
                 "id_artist_type": "605c5f33e1a3b942509ecf94",
-                "description": "Artista versátil y carismático",
                 "active": True
             }
         }
