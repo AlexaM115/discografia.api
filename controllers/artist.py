@@ -2,10 +2,18 @@ from models.artist import Artist
 from utils.mongodb import get_collection
 from bson import ObjectId
 from fastapi import HTTPException
+from datetime import datetime, date
 
 collection = get_collection("artists")
 
 def create_artist(artist: Artist):
+    data = artist.model_dump()
+    
+    # Convertir la fecha de nacimiento a datetime
+    if 'date_birth' in data and isinstance(data['date_birth'], date):
+        data['date_birth'] = datetime.combine(data['date_birth'], datetime.min.time())
+
+    
     if collection.find_one({"name": artist.name, "lastname": artist.lastname}):
         raise HTTPException(status_code=400, detail="El artista ya existe")
 
